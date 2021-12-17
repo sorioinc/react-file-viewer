@@ -1,15 +1,15 @@
 // Copyright (c) 2017 PlanGrid, Inc.
 
-const fs = require('fs');
-const path = require('path');
-const execSync = require('child_process').execSync;
+import fs from 'fs';
+import path from 'path';
+import { execSync } from 'child_process'
 
-const inquirer = require('inquirer');
-const chalk = require('chalk');
+import inquirer from 'inquirer';
+import chalk from 'chalk';
 
-const runColor = chalk.bold.blue;
-const errColor = chalk.bold.red;
-const goodColor = chalk.bold.green;
+const runColor = chalk.bold.bold;
+const errColor = chalk.red.bold;
+const goodColor = chalk.green.bold;
 
 const appDir = fs.realpathSync(process.cwd());
 

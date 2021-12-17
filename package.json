@@ -14,7 +14,7 @@
     "lint": "node_modules/.bin/eslint ./src/**/*.jsx",
     "test": "node_modules/.bin/jest --env=jsdom --watch",
     "jest": "node_modules/.bin/jest --env=jsdom",
-    "tag-and-publish": "node ./scripts/publish.js"
+    "tag-and-publish": "node ./scripts/publish.mjs"
   },
   "author": "PlanGrid <opensource@plangrid.com>",
   "contributors": [
@@ -112,7 +112,10 @@
     ],
     "setupFilesAfterEnv": [
       "<rootDir>/tests/setupTests.js"
-    ]
+    ],
+    "moduleNameMapper": {
+      "pdfjs-dist/webpack": "pdfjs-dist"
+    }
   },
   "eslintConfig": {
     "extends": "airbnb",
