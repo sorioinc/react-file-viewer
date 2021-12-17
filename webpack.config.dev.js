@@ -5,28 +5,33 @@ const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ESLintPlugin = require('eslint-webpack-plugin');
+
+const output = path.resolve(__dirname, './build');
+const PORT = 8081;
 
 module.exports = {
+  mode: 'development',
   devtool: 'cheap-module-source-map',
-
   entry: {
-    app: [
-      'webpack-dev-server/client?http://localhost:8081/',
-      'webpack/hot/dev-server',
-      path.resolve(__dirname, './src/app.js'),
-    ],
+    app: path.resolve(__dirname, './src/app.js'),
   },
   output: {
-    path: path.resolve(__dirname, './build'),
-    pathinfo: true,
-    filename: 'app/js/[name].bundle.js',
+    path: output,
+    filename: "[name].bundle.js",
     publicPath: '/',
   },
   resolve: {
     modules: [path.resolve(__dirname, 'src'), path.resolve(__dirname, 'example_files'), 'node_modules'],
     extensions: ['.js', '.json', '.jsx'],
   },
-
+  watchOptions: {
+    ignored: /node_modules/,
+  },
+  devServer: {
+    static: output,
+    port: PORT,
+  },
   module: {
     rules: [
       {
@@ -49,28 +54,26 @@ module.exports = {
           {
             loader: 'postcss-loader',
             options: {
-              ident: 'postcss',
-              plugins: () => [
-                autoprefixer({
-                  browsers: [
-                    '>1%',
-                    'last 4 versions',
-                    'not ie < 9',
-                  ],
-                }),
-              ],
+              postcssOptions: {
+                plugins: () => [
+                  autoprefixer({
+                    browsers: [
+                      '>1%',
+                      'last 4 versions',
+                      'not ie < 9',
+                    ],
+                  }),
+                ],
+              }
             },
           },
           {
             loader: 'sass-loader',
+            options: {
+              implementation: require('sass'),
+            }
           },
         ],
-      },
-      {
-        test: /\.(js|jsx)$/,
-        loader: 'eslint-loader',
-        include: path.resolve(__dirname, 'src'),
-        enforce: 'pre',
       },
       {
         test: [/\.wexbim$/, /\.jpg$/, /\.docx$/, /\.csv$/, /\.mp4$/, /\.xlsx$/, /\.doc$/, /\.avi$/, /\.webm$/, /\.mov$/, /\.mp3$/, /\.rtf$/, /\.pdf$/],
@@ -92,5 +95,6 @@ module.exports = {
       template: path.resolve(__dirname, './index.html'),
     }),
     new webpack.HotModuleReplacementPlugin(),
+    new ESLintPlugin(),
   ],
 };

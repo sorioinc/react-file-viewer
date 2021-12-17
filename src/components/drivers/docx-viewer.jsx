@@ -1,7 +1,7 @@
 // Copyright (c) 2017 PlanGrid, Inc.
 
 import React, { Component } from 'react';
-import mammoth from 'mammoth';
+import mammoth from 'mammoth/mammoth.browser';
 
 import 'styles/docx.scss';
 import Loading from '../loading';

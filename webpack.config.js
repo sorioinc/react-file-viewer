@@ -7,7 +7,8 @@ const BUILD_DIR = path.resolve(__dirname, './dist');
 const APP_DIR = path.resolve(__dirname, './src');
 
 const config = {
-  entry: `${APP_DIR}/components`,
+  mode: 'production',
+  entry: [`${APP_DIR}/components`],
   output: {
     path: BUILD_DIR,
     filename: 'index.js',
@@ -58,20 +59,24 @@ const config = {
           {
             loader: 'postcss-loader',
             options: {
-              ident: 'postcss',
-              plugins: () => [
-                autoprefixer({
-                  browsers: [
-                    '>1%',
-                    'last 4 versions',
-                    'not ie < 9',
-                  ],
-                }),
-              ],
+              postcssOptions: {
+                plugins: () => [
+                  autoprefixer({
+                    browsers: [
+                      '>1%',
+                      'last 4 versions',
+                      'not ie < 9',
+                    ],
+                  }),
+                ],
+              },             
             },
           },
           {
             loader: 'sass-loader',
+            options: {
+              implementation: require('sass'),
+            }
           },
         ],
       },
