@@ -18,7 +18,7 @@ module.exports = {
   },
   output: {
     path: output,
-    filename: "[name].bundle.js",
+    filename: '[name].bundle.js',
     publicPath: '/',
   },
   resolve: {
@@ -71,7 +71,7 @@ module.exports = {
             loader: 'sass-loader',
             options: {
               implementation: require('sass'),
-            }
+            },
           },
         ],
       },

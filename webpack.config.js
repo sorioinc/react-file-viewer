@@ -14,6 +14,7 @@ const config = {
     filename: 'index.js',
     library: ['FileViewer'],
     libraryTarget: 'umd',
+    publicPath: '',
   },
   resolve: {
     modules: [path.resolve(__dirname, './src'), 'node_modules'],
@@ -69,14 +70,14 @@ const config = {
                     ],
                   }),
                 ],
-              },             
+              },
             },
           },
           {
             loader: 'sass-loader',
             options: {
               implementation: require('sass'),
-            }
+            },
           },
         ],
       },
